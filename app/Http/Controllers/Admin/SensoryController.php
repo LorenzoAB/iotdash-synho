@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\http\Requests\SensoryFormRequest;
 use App\Models\Sensory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -48,18 +47,35 @@ class SensoryController extends Controller
         return view('home.sensory.create');
     }
 
-    public function store(SensoryFormRequest $request)
+    public function store(Request $request)
     {
-        $validatedData = $request->validated();
-        $sensory = new Sensory;
-        $sensory->sensory1 = $validatedData['sensory1'];
-        $sensory->sensory2 = $validatedData['sensory2'];
-        $sensory->sensory3 = $validatedData['sensory3'];
-        $sensory->sensory4 = $validatedData['sensory4'];
-        $sensory->sensory5 = $validatedData['sensory5'];
+        //validar Formulario
+        $validator = Validator::make($request->all(), [
+            'sensory1' => 'required',
+            'sensory2' => 'required',
+            'sensory3' => 'required',
+            'sensory4' => 'required',
+            'sensory5' => 'required'
+        ]);
+        //Esto es para que lleve donde esta el formulario
+        if ($validator->fails()) {
+            return redirect(url()->previous())
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $sensory = new sensory();
+
+        $sensory->sensory1 = $request->input('sensory1');
+        $sensory->sensory2 = $request->input('sensory2');
+        $sensory->sensory3 = $request->input('sensory3');
+        $sensory->sensory4 = $request->input('sensory4');
+        $sensory->sensory5 = $request->input('sensory5');
+
         //Usuario
-        $user = Auth::user();
+        $user = \Auth::user();
         $sensory->user_id = $user->id;
+
         $sensory->save();
 
         return redirect('home/sensory')->with('message', 'Dato agregado Correctamente');

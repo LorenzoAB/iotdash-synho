@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use App\http\Requests\UserFormRequest;
 //Modelos
 use App\Models\User;
 
@@ -46,33 +45,49 @@ class UserController extends Controller
     {
         return view('admin.user.create');
     }
-    public function store(UserFormRequest $request)
+
+    public function store(Request $request)
     {
-        //validar 
-        $validate = DB::table('users as v')
-            ->select('v.id')
-            ->where('v.name', '=', $request->input('name'))
-            ->orwhere('v.email', '=', $request->input('email'))
-            ->get();
-
-        $validator = array('errors' => 'El nombre o email estan registrados');
-
-        if (count($validate) > 0) {
+        //validar Formulario
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'min:8|required_with:password_confirmation|same:password_confirmation',
+            'password_confirmation' => 'min:8',
+            'role_as'     => 'required',
+        ]);
+        //Esto es para que lleve donde esta el formulario
+        if ($validator->fails()) {
             return redirect(url()->previous())
-                ->withErrors($validator)
-                ->withInput();
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+        
+        //validar 
+        $validate = \DB::table('users as v')
+        ->select('v.id')
+        ->where('v.name','=',$request->input('name'))
+        ->orwhere('v.email','=',$request->input('email'))
+        ->get();
+
+        $validator = array('errors'=>'El nombre o email estan registrados');
+
+        if(count($validate) > 0 ){
+            return redirect(url()->previous())
+                    ->withErrors($validator)
+                    ->withInput();
         }
 
-        $validatedData = $request->validated();
-        $user = new User;
-        $user->name = $validatedData['name'];
-        $user->email = $validatedData['email'];
-        $user->password = Hash::make($validatedData['password']);
-        $user->role_as = $validatedData['role_as'];
-        $user->phone = $validatedData['phone'];
+        $user = new user();
+        
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->password);
+        $user->role_as = $request->input('role_as');
+        $user->phone = $request->input('phone');
 
         $user->save();
-
+        
         return redirect('admin/user')->with('message', 'Usuario agregado Correctamente');
     }
 
