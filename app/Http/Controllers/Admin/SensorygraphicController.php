@@ -200,7 +200,7 @@ class SensorygraphicController extends Controller
             $sensorys = \DB::table('sensorys')
                 ->select('sensory1')
                 ->where('user_id', '=', $user->id)
-                ->latest()
+                ->orderBy('id', 'desc') 
                 ->take(10)
                 ->get();
 
@@ -232,7 +232,7 @@ class SensorygraphicController extends Controller
             $sensorys = \DB::table('sensorys')
                 ->where('user_id', '=', $user->id)
                 ->select('sensory2')
-                ->latest()
+                ->orderBy('id', 'desc') 
                 ->take(10)
                 ->get();
             $nregistro++;
@@ -262,7 +262,7 @@ class SensorygraphicController extends Controller
             $sensorys = \DB::table('sensorys')
                 ->where('user_id', '=', $user->id)
                 ->select('sensory3')
-                ->latest()
+                ->orderBy('id', 'desc') 
                 ->take(10)
                 ->get();
             $nregistro++;
@@ -292,7 +292,7 @@ class SensorygraphicController extends Controller
             $sensorys = \DB::table('sensorys')
                 ->where('user_id', '=', $user->id)
                 ->select('sensory4')
-                ->latest()
+                ->orderBy('id', 'desc') 
                 ->take(10)
                 ->get();
             $nregistro++;
@@ -322,7 +322,7 @@ class SensorygraphicController extends Controller
             $sensorys = \DB::table('sensorys')
                 ->where('user_id', '=', $user->id)
                 ->select('sensory5')
-                ->latest()
+                ->orderBy('id', 'desc') 
                 ->take(10)
                 ->get();
             $nregistro++;
@@ -352,7 +352,7 @@ class SensorygraphicController extends Controller
             $sensorys = \DB::table('sensorys')
                 ->select('created_at')
                 ->where('user_id', '=', $user->id)
-                ->latest()
+                ->orderBy('id', 'desc') 
                 ->take(10)
                 ->get();
             $nregistro++;
@@ -371,7 +371,7 @@ class SensorygraphicController extends Controller
         $sensorys = \DB::table('sensorys')
             ->select('sensory1')
             ->where('user_id', '=', $user->id)
-            ->latest()
+            ->orderBy('id', 'desc') 
             ->take(1)
             ->get();
         
@@ -387,7 +387,7 @@ class SensorygraphicController extends Controller
         $sensorys = \DB::table('sensorys')
             ->select('sensory2')
             ->where('user_id', '=', $user->id)
-            ->latest()
+            ->orderBy('id', 'desc') 
             ->take(1)
             ->get();
         
@@ -403,7 +403,7 @@ class SensorygraphicController extends Controller
         $sensorys = \DB::table('sensorys')
             ->select('sensory3')
             ->where('user_id', '=', $user->id)
-            ->latest()
+            ->orderBy('id', 'desc') 
             ->take(1)
             ->get();
         
@@ -419,7 +419,7 @@ class SensorygraphicController extends Controller
         $sensorys = \DB::table('sensorys')
             ->select('sensory4')
             ->where('user_id', '=', $user->id)
-            ->latest()
+            ->orderBy('id', 'desc') 
             ->take(1)
             ->get();
         
@@ -435,7 +435,7 @@ class SensorygraphicController extends Controller
         $sensorys = \DB::table('sensorys')
             ->select('sensory5')
             ->where('user_id', '=', $user->id)
-            ->latest()
+            ->orderBy('id', 'desc') 
             ->take(1)
             ->get();
         

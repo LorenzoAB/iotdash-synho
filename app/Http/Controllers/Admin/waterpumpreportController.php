@@ -30,12 +30,10 @@ class waterpumpreportController extends Controller
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
-        $begin = $request->input('begin');
-        $finish = $request->input('finish');
-        $user = \Auth::user();
+        $begin = $request->input('begin'). ' 00:00:00';
+        $finish = $request->input('finish').' 23:59:59';
 
-        $finish = Carbon::now();
-        $finish->format("Y-M-D H:m:s");
+        $user = \Auth::user();
 
         $data = DB::table('waterpumps as w')
             ->select('w.input', 'w.output', 'w.constant', 'w.level', 'w.value', 'w.created_at')
@@ -63,10 +61,8 @@ class waterpumpreportController extends Controller
     {
         try {
             $action = $request->action;
-            $start_date = $request->start_date;
-            $end_date = $request->end_date;
-            $end_date = Carbon::now();
-            $end_date->format("Y-M-D H:m:s");
+            $start_date = $request->start_date. ' 00:00:00';
+            $end_date = $request->end_date.' 23:59:59';
 
             $data = [];
             if ($action == 'init_report_graph_line_chart') {
@@ -263,12 +259,10 @@ class waterpumpreportController extends Controller
                 return response()->json(['errors' => $validator->errors()->all()]);
             }
 
-            $begin = $request->input('begin');
-            $finish = $request->input('finish');
+            $begin = $request->input('begin'). ' 00:00:00';
+            $finish = $request->input('finish').' 23:59:59';
+    
             $user = \Auth::user();
-
-            $finish = Carbon::now();
-            $finish->format("Y-M-D H:m:s");
 
             $query = DB::table('waterpumps as w')
                 ->select('w.input', 'w.output', 'w.constant', 'w.level', 'w.value', 'w.created_at')
