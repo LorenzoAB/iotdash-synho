@@ -118,7 +118,7 @@ class waterpumpreportController extends Controller
                     ->get();
 
                 foreach ($waterpumps as $waterpump) {
-                    array_push($data, intval($waterpump->input));
+                    array_push($data, floatval($waterpump->input));
                 }
                 return $data;
 
@@ -142,7 +142,7 @@ class waterpumpreportController extends Controller
                     ->get();
 
                 foreach ($waterpumps as $waterpump) {
-                    array_push($data, intval($waterpump->output));
+                    array_push($data, floatval($waterpump->output));
                 }
                 return $data;
 
@@ -166,7 +166,7 @@ class waterpumpreportController extends Controller
                     ->get();
 
                 foreach ($waterpumps as $waterpump) {
-                    array_push($data, intval($waterpump->constant));
+                    array_push($data, floatval($waterpump->constant));
                 }
                 return $data;
             }
@@ -189,7 +189,7 @@ class waterpumpreportController extends Controller
                     ->get();
 
                 foreach ($waterpumps as $waterpump) {
-                    array_push($data, intval($waterpump->level));
+                    array_push($data, floatval($waterpump->level));
                 }
                 return $data;
             }

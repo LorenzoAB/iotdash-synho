@@ -50,6 +50,7 @@ Route::prefix('home')->middleware(['auth'])->group(function () {
         Route::post('/sensory/list_ajax_sensory_report', 'list_ajax')->name('list_ajax_sensory_report');
         Route::post('/sensory/list_ajax_sensory_report_graphic', 'list_graphic')->name('list_ajax_sensory_report_graphic');
         Route::post('/sensory/list_ajax_sensory_report_email', 'report_email')->name('list_ajax_sensory_report_email');
+        Route::post('/sensory/list_ajax_sensory_report_whatsapp', 'report_whatsapp')->name('list_ajax_sensory_report_whatsapp');
     });
 
     # Waterpump

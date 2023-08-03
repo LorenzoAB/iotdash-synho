@@ -56,7 +56,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="sensory1">Sensor 1</label>
-                                        <input type="number" name="sensory1" class="form-control"
+                                        <input type="text" name="sensory1" class="form-control"
                                             value="{{ old('sensory1') }}" min="1" max="100" placeholder="Sensor 1...">
                                             @error('sensory1')
                                                 <small class="text-danger">{{ $message }}</small>
@@ -65,7 +65,7 @@
 
                                     <div class="form-group col-md-6">
                                         <label for="sensory2">Sensor 2</label>
-                                        <input type="number" name="sensory2" class="form-control"
+                                        <input type="text" name="sensory2" class="form-control"
                                             value="{{ old('sensory2') }}" min="1" max="100" placeholder="Sensor 2...">
                                             @error('sensory2')
                                                 <small class="text-danger">{{ $message }}</small>
@@ -76,7 +76,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="sensory3">Sensor 3</label>
-                                        <input type="number" name="sensory3" class="form-control"
+                                        <input type="text" name="sensory3" class="form-control"
                                             value="{{ old('sensory3') }}" min="1" max="100" placeholder="Sensor 3...">
                                             @error('sensory3')
                                                 <small class="text-danger">{{ $message }}</small>
@@ -85,7 +85,7 @@
 
                                     <div class="form-group col-md-6">
                                         <label for="sensory4">Sensor 4</label>
-                                        <input type="number" name="sensory4" class="form-control"
+                                        <input type="text" name="sensory4" class="form-control"
                                             value="{{ old('sensory4') }}" min="1" max="100" placeholder="Sensor 4...">
                                             @error('sensory4')
                                                 <small class="text-danger">{{ $message }}</small>
@@ -96,7 +96,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="sensory5">Sensor 5</label>
-                                        <input type="number" name="sensory5" class="form-control"
+                                        <input type="text" name="sensory5" class="form-control"
                                             value="{{ old('sensory5') }}" min="1" max="100" placeholder="Sensor 5...">
                                             @error('sensory5')
                                                 <small class="text-danger">{{ $message }}</small>

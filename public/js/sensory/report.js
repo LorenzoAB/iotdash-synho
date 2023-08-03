@@ -27,6 +27,7 @@ $("#search_data").click(function (e) {
             } else {
                 //Botones email, whatsapp
                 $('#mail_data').show();
+                $('#whatsapp_data').show();
                 //tabla
                 $('#lista').dataTable({
                     "bDestroy": true
@@ -279,6 +280,75 @@ $("#mail_data").click(function(e) {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 url: "list_ajax_sensory_report_email",
+                method: 'POST',
+                data: {
+                    'begin': begin,
+                    'finish': finish,
+                },
+                success: function(data) {
+                    console.log(data);
+                    if (data.errors) {
+                        console.log(data.errors)
+                    } else if (data.code == 500) {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: data.message
+                        });
+                    } else {
+                        Swal.fire({
+                            type: 'success',
+                            title: 'Exito',
+                            text: data.message,
+                            timer: 2000
+                        });
+                    }
+                },
+                error: function(data) {
+                    Swal.fire({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'Algo ha salido mal'
+                    });
+                }
+            }); //FIN DE AJAX 
+        } else {
+            //Vacio
+        }
+    });
+});
+
+
+//Correo
+$("#whatsapp_data").click(function(e) {
+    e.preventDefault();
+    begin = $('#begin').val();
+    finish = $('#finish').val();
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+
+    swal.fire({
+        title: 'Enviar una Notificacion',
+        text:'Whatsapp: 910583486',
+        showCancelButton: true,
+        confirmButtonText: '<i class="zmdi zmdi-run"></i> Si, Enviar!',
+        cancelButtonText: '<i class="zmdi zmdi-close-circle"></i> No, Enviar!',
+        confirmButtonColor: '#03A9F4',
+        cancelButtonColor: '#F44336',
+        reverseButtons: true
+    }).then((result) => {
+        
+        if (result.value) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "list_ajax_sensory_report_whatsapp",
                 method: 'POST',
                 data: {
                     'begin': begin,

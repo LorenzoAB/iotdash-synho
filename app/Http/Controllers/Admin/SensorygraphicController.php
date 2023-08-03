@@ -208,7 +208,7 @@ class SensorygraphicController extends Controller
         }
 
         foreach ($sensorys as $sensory) {
-            array_push($data, intval($sensory->sensory1));
+            array_push($data, floatval($sensory->sensory1));
         }
         return $data;
     }
@@ -239,7 +239,7 @@ class SensorygraphicController extends Controller
         }
 
         foreach ($sensorys as $sensory) {
-            array_push($data, intval($sensory->sensory2));
+            array_push($data, floatval($sensory->sensory2));
         }
         return $data;
     }
@@ -269,7 +269,7 @@ class SensorygraphicController extends Controller
         }
 
         foreach ($sensorys as $sensory) {
-            array_push($data, intval($sensory->sensory3));
+            array_push($data, floatval($sensory->sensory3));
         }
         return $data;
     }
@@ -299,7 +299,7 @@ class SensorygraphicController extends Controller
         }
 
         foreach ($sensorys as $sensory) {
-            array_push($data, intval($sensory->sensory4));
+            array_push($data, floatval($sensory->sensory4));
         }
         return $data;
     }
@@ -329,7 +329,7 @@ class SensorygraphicController extends Controller
         }
 
         foreach ($sensorys as $sensory) {
-            array_push($data, intval($sensory->sensory5));
+            array_push($data, floatval($sensory->sensory5));
         }
         return $data;
     }
@@ -376,7 +376,7 @@ class SensorygraphicController extends Controller
             ->get();
         
         foreach ($sensorys as $sensory) {
-            array_push($data, intval($sensory->sensory1));
+            array_push($data, floatval($sensory->sensory1));
         }
         return $data;
     }
@@ -392,7 +392,7 @@ class SensorygraphicController extends Controller
             ->get();
         
         foreach ($sensorys as $sensory) {
-            array_push($data, intval($sensory->sensory2));
+            array_push($data, floatval($sensory->sensory2));
         }
         return $data;
     }
@@ -408,7 +408,7 @@ class SensorygraphicController extends Controller
             ->get();
         
         foreach ($sensorys as $sensory) {
-            array_push($data, intval($sensory->sensory3));
+            array_push($data, floatval($sensory->sensory3));
         }
         return $data;
     }
@@ -424,7 +424,7 @@ class SensorygraphicController extends Controller
             ->get();
         
         foreach ($sensorys as $sensory) {
-            array_push($data, intval($sensory->sensory4));
+            array_push($data, floatval($sensory->sensory4));
         }
         return $data;
     }
@@ -440,7 +440,7 @@ class SensorygraphicController extends Controller
             ->get();
         
         foreach ($sensorys as $sensory) {
-            array_push($data, intval($sensory->sensory5));
+            array_push($data, floatval($sensory->sensory5));
         }
         return $data;
     }

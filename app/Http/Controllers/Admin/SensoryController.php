@@ -51,11 +51,11 @@ class SensoryController extends Controller
     {
         //validar Formulario
         $validator = Validator::make($request->all(), [
-            'sensory1' => 'required',
-            'sensory2' => 'required',
-            'sensory3' => 'required',
-            'sensory4' => 'required',
-            'sensory5' => 'required'
+            'sensory1' => 'required|numeric|min:0|max:100',
+            'sensory2' => 'required|numeric|min:0|max:100',
+            'sensory3' => 'required|numeric|min:0|max:100',
+            'sensory4' => 'required|numeric|min:0|max:100',
+            'sensory5' => 'required|numeric|min:0|max:100',
         ]);
         //Esto es para que lleve donde esta el formulario
         if ($validator->fails()) {
@@ -83,71 +83,104 @@ class SensoryController extends Controller
 
 
     //API 
-    public function list_ajax_sensory()
+    public function list_ajax_sensory(Request $request)
     {
-        //Usuario
-        $user = Auth::user();
 
-        $data = DB::table('sensorys')
-            ->select('sensorys.*')
-            ->orderBy('id', 'desc')->get();
+        $token = $request->query('token');
 
-        if ($data) {
-            $array = array(
-                'message' => 'Data Found',
-                'code' => 200,
-                'data' => $data,
-            );
-        } else {
-            $array = array(
-                'message' => 'Internal Data error',
-                'code' => 500,
-                'data' => ''
-            );
-        }
-        return response()->json($array);
-    }
-    public function save_ajax_sensory(Request $request)
-    {
-        //validar Formulario
-        $validator = Validator::make($request->all(), [
-            'sensory1' => 'required',
-            'sensory2' => 'required',
-            'sensory3' => 'required',
-            'sensory4' => 'required',
-            'sensory5' => 'required',
-            'user_id' => 'required'
+        // validar Formulario
+        $validator = Validator::make(['token' => $token], [
+            'token' => 'required',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()->all()]);
         }
 
-        // Guardar el coche
-        $waterpump = new Sensory();
+        if ($token == "DFC3A7CF4EF6CA9B70E9992CFA00911F") {
+            $data = DB::table('sensorys')
+                ->select('sensorys.*')
+                ->orderBy('id', 'desc')->get();
 
-        $waterpump->sensory1 = $request->input('sensory1');
-        $waterpump->sensory2 = $request->input('sensory2');
-        $waterpump->sensory3 = $request->input('sensory3');
-        $waterpump->sensory4 = $request->input('sensory4');
-        $waterpump->sensory5 = $request->input('sensory5');
-        $waterpump->user_id = $request->input('user_id');
-
-        $waterpump->save();
-
-        if ($waterpump) {
-            $array = array(
-                'message' => 'Registrado Correctamente',
-                'code' => 200,
-                'error' => false,
-            );
+            if ($data) {
+                $array = array(
+                    'message' => 'Data Found',
+                    'code' => 200,
+                    'data' => $data,
+                );
+            } else {
+                $array = array(
+                    'message' => 'Internal Data error',
+                    'code' => 500,
+                    'data' => ''
+                );
+            }
         } else {
             $array = array(
-                'message' => 'Error al eliminar',
+                'message' => 'Token Incorrecto',
                 'code' => 500,
-                'error' => true
+                'data' => ''
             );
         }
-        return response()->json($array, 200);
+
+        return response()->json($array);
+
+    }
+    public function save_ajax_sensory(Request $request)
+    {
+        //validar Formulario
+        $validator = Validator::make($request->all(), [
+            'sensory1' => 'required|numeric|min:0|max:100',
+            'sensory2' => 'required|numeric|min:0|max:100',
+            'sensory3' => 'required|numeric|min:0|max:100',
+            'sensory4' => 'required|numeric|min:0|max:100',
+            'sensory5' => 'required|numeric|min:0|max:100',
+            'user_id' => 'required',
+            'token' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()]);
+        }
+
+        $token = $request->input('token');
+
+        if ($token == "DFC3A7CF4EF6CA9B70E9992CFA00911F") {
+
+            // Guardar el coche
+            $sensory = new Sensory();
+
+            $sensory->sensory1 = $request->input('sensory1');
+            $sensory->sensory2 = $request->input('sensory2');
+            $sensory->sensory3 = $request->input('sensory3');
+            $sensory->sensory4 = $request->input('sensory4');
+            $sensory->sensory5 = $request->input('sensory5');
+            $sensory->user_id = $request->input('user_id');
+
+            $sensory->save();
+
+            if ($sensory) {
+                $array = array(
+                    'message' => 'Registrado Correctamente',
+                    'code' => 200,
+                    'error' => false,
+                );
+            } else {
+                $array = array(
+                    'message' => 'Error al eliminar',
+                    'code' => 500,
+                    'error' => true
+                );
+            }
+
+        } else {
+            $array = array(
+                'message' => 'Token Incorrecto',
+                'code' => 500,
+                'data' => ''
+            );
+        }
+
+        return response()->json($array);
     }
 }

@@ -28,5 +28,6 @@ Route::controller(App\Http\Controllers\Admin\WaterpumpController::class)->group(
 # Sensory
 Route::controller(App\Http\Controllers\Admin\SensoryController::class)->group(function () {
     Route::post('/sensory/save_ajax_sensory', 'save_ajax_sensory')->name('save_ajax_sensory');
-    Route::get('/sensory/list_ajax_sensory', 'list_ajax_sensory')->name('list_ajax_sensory');
+    Route::get('/sensory/list_ajax_sensory/', 'list_ajax_sensory')->name('list_ajax_sensory');
+    
 });
